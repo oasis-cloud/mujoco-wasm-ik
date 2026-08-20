@@ -1,0 +1,36 @@
+{
+  "name": "mujoco-wasm-ik",
+  "version": "0.1.0",
+  "description": "MuJoCo WebAssembly bindings with Mink-style differential IK (minc + DAQP) in the same module.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "main": "./dist/mujoco.js",
+  "module": "./dist/mujoco.js",
+  "types": "./dist/mujoco.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/mujoco.d.ts",
+      "import": "./dist/mujoco.js",
+      "default": "./dist/mujoco.js"
+    }
+  },
+  "files": [
+    "dist/mujoco.js",
+    "dist/mujoco.wasm",
+    "dist/mujoco.d.ts",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "scripts": {
+    "sync": "node scripts/sync-deps.mjs",
+    "build": "node scripts/build.mjs",
+    "smoke": "node overlay/smoke.mjs"
+  },
+  "keywords": [
+    "mujoco",
+    "wasm",
+    "inverse-kinematics",
+    "minc",
+    "daqp"
+  ]
+}

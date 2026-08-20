@@ -1,0 +1,18 @@
+mujoco-wasm-ik
+Copyright 2026 the mujoco-wasm-ik authors
+
+This product includes software developed by:
+
+- Google DeepMind — MuJoCo (Apache-2.0)
+  https://github.com/google-deepmind/mujoco
+- Antoine Mart — MINC (Apache-2.0), a C++ port of Mink
+  https://github.com/martantoine/Minc
+- Kevin Zakka — Mink (Apache-2.0)
+  https://github.com/kevinzakka/mink
+- Daniel Arnström — DAQP (MIT)
+  https://github.com/darnstrom/daqp
+- Eigen (MPL2)
+  https://eigen.tuxfamily.org/
+
+Upstream sources are cloned into vendor/ at build time (see versions.lock.json).
+See LICENSE files in those checkouts for upstream terms.

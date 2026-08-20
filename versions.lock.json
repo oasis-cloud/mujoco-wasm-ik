@@ -1,0 +1,20 @@
+{
+  "deps": {
+    "mujoco": {
+      "repo": "https://github.com/google-deepmind/mujoco.git",
+      "tag": "3.11.0"
+    },
+    "minc": {
+      "repo": "https://github.com/martantoine/Minc.git",
+      "tag": "V0.1.0"
+    },
+    "daqp": {
+      "repo": "https://github.com/darnstrom/daqp.git",
+      "tag": "v0.7.2"
+    },
+    "eigen": {
+      "repo": "https://gitlab.com/libeigen/eigen.git",
+      "tag": "3.4.0"
+    }
+  }
+}

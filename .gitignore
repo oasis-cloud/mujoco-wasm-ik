@@ -1,0 +1,30 @@
+node_modules/
+.DS_Store
+*.log
+
+# Emscripten SDK — install locally
+emsdk/
+
+# Official source checkouts (see versions.lock.json)
+vendor/
+
+# CMake / native build outputs
+**/build/
+**/build_cmake/
+**/cmake-build-*/
+**/CMakeCache.txt
+**/CMakeFiles/
+**/cmake_install.cmake
+**/Makefile
+**/.cache/
+
+# Objects & maps
+**/*.o
+**/*.a
+**/*.so
+**/*.dylib
+**/*.wasm.map
+
+**/.venv/
+**/__pycache__/
+**/*.egg-info/
