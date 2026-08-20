@@ -12,7 +12,8 @@
       "types": "./dist/mujoco.d.ts",
       "import": "./dist/mujoco.js",
       "default": "./dist/mujoco.js"
-    }
+    },
+    "./mujoco.wasm": "./dist/mujoco.wasm"
   },
   "files": [
     "dist/mujoco.js",

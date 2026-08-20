@@ -1,14 +1,40 @@
 import { spawnSync } from "node:child_process";
-import { copyFileSync, existsSync, mkdirSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  statSync,
+} from "node:fs";
+import { join, relative } from "node:path";
 import { ROOT, VENDOR, LOCK_PATH, parseArgs, syncDeps, writeLock } from "./sync-deps.mjs";
 
 const PATCH = join(ROOT, "overlay/patches/wasm-CMakeLists.txt.patch");
 const OVERLAY_BINDINGS = join(ROOT, "overlay/ik_bindings.cc");
 const OVERLAY_DEPS = join(ROOT, "overlay/deps.cmake");
+const OVERLAY_MINC_EXT = join(ROOT, "overlay/minc-ext");
 const SMOKE = join(ROOT, "overlay/smoke.mjs");
 const DIST = join(ROOT, "dist");
 const MUJOCO = join(VENDOR, "mujoco");
+const MINC = join(VENDOR, "minc");
+
+function copyTree(srcRoot, destRoot) {
+  const walk = (dir) => {
+    for (const name of readdirSync(dir)) {
+      const from = join(dir, name);
+      const to = join(destRoot, relative(srcRoot, from));
+      if (statSync(from).isDirectory()) {
+        mkdirSync(to, { recursive: true });
+        walk(from);
+      } else {
+        mkdirSync(join(to, ".."), { recursive: true });
+        copyFileSync(from, to);
+      }
+    }
+  };
+  walk(srcRoot);
+}
 
 function fail(message) {
   console.error(message);
@@ -35,6 +61,14 @@ export function applyOverlay() {
     fail(
       `vendor/mujoco is missing wasm/CMakeLists.txt. Run npm run sync, or clone MuJoCo into vendor/mujoco.`,
     );
+  }
+
+  if (!existsSync(MINC)) {
+    fail(`vendor/minc missing; run npm run sync first.`);
+  }
+  if (existsSync(OVERLAY_MINC_EXT)) {
+    copyTree(OVERLAY_MINC_EXT, MINC);
+    console.log("applied overlay/minc-ext onto vendor/minc");
   }
 
   const ikDir = join(MUJOCO, "wasm/ik");
@@ -79,7 +113,7 @@ function compileWasm() {
   }
   bash("npm install --prefix ./wasm", MUJOCO);
   bash(
-    "emcmake cmake -B build -G Ninja -DMUJOCO_WASM_THREADS=OFF -DMUJOCO_BUILD_TESTS_WASM=OFF && cmake --build build --target mujoco_wasm -j",
+    'export PATH="$PWD/wasm/node_modules/.bin:$PATH" && emcmake cmake -B build -G Ninja -DMUJOCO_WASM_THREADS=OFF -DMUJOCO_BUILD_TESTS_WASM=OFF && cmake --build build --target mujoco_wasm -j',
     MUJOCO,
   );
 }

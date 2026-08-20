@@ -7507,7 +7507,7 @@ function checkIncomingModuleAPI() {
   ignoredModuleProp('fetchSettings');
 }
 var ASM_CONSTS = {
-  650032: () => { if (typeof Module !== "undefined") { "mjDISABLESTRING mjENABLESTRING mjFRAMESTRING mjLABELSTRING mjRNDSTRING mjTIMERSTRING mjVISSTRING".split(" ").forEach(function(name) { Object.defineProperty(Module, name, { get: function() { return Module["get_" + name](); }, set: function(v) { }, enumerable: true, configurable: true }); }); } }
+  649584: () => { if (typeof Module !== "undefined") { "mjDISABLESTRING mjENABLESTRING mjFRAMESTRING mjLABELSTRING mjRNDSTRING mjTIMERSTRING mjVISSTRING".split(" ").forEach(function(name) { Object.defineProperty(Module, name, { get: function() { return Module["get_" + name](); }, set: function(v) { }, enumerable: true, configurable: true }); }); } }
 };
 
 // Imports from the Wasm binary.
